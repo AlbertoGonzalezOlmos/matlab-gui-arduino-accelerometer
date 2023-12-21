@@ -1,0 +1,22 @@
+% read accelerometer data
+
+filesDay = dir('./data/day_*');
+
+for iDay = 1:1:length(filesDay)
+    pathDay = [filesDay(iDay).folder,'/',filesDay(iDay).name];
+    filesMouse = dir([pathDay,'/*.csv']);
+
+    for iMouse = 1:1:length(filesMouse)
+        pathMouse = [filesMouse(iMouse).folder,'/',filesMouse(iMouse).name];
+
+        dataMouse = readmatrix(pathMouse);
+        data(:,1) = dataMouse(:,1);
+        dataMouse(isnan(dataMouse)) = [];
+        data = dataMouse - mean(dataMouse,1);
+        figure,plot(dataMouse(:,1))
+
+    end
+
+end
+
+
